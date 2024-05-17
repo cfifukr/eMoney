@@ -1,6 +1,5 @@
 package com.example.emoney.dtos;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,9 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegistrationDto {
-    private String username;
-    private String password;
+public class RoleDto {
     private String name;
-    private String role;
 }

@@ -1,8 +1,6 @@
 package com.example.emoney.dtos;
 
-import com.example.emoney.enums.Role;
 import com.example.emoney.models.User;
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,16 +13,16 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class UserReponseDto {
-    private String login;
+    private String username;
     private String name;
-    private Role role;
+    private String role;
     private List<WalletResponseDto> walletResponseDto;
 
     public static UserReponseDto getDto(User user){
         UserReponseDto dto = UserReponseDto.builder()
-                .login(user.getLogin())
+                .username(user.getUsername())
                 .name(user.getName())
-                .role(user.getRole())
+                .role(user.getRoles().toString())
                     .build();
 
         dto.setWalletResponseDto(user.getWallets().stream()

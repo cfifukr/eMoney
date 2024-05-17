@@ -2,55 +2,68 @@ package com.example.emoney.services;
 
 import com.example.emoney.dtos.RegistrationDto;
 import com.example.emoney.enums.Currency;
-import com.example.emoney.enums.Role;
 import com.example.emoney.models.User;
 import com.example.emoney.models.Wallet;
 import com.example.emoney.repositories.UserRepository;
-import com.example.emoney.utils.Hash;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+
+
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class UserService {
+@RequiredArgsConstructor
+public class UserService{
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private WalletService walletService;
+    private final RoleService roleService;
+
+    private final PasswordEncoder passwordEncoder;
 
 
 
+    @Transactional(readOnly = true)
     public List<User> getAll(){
         return userRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
+    public Optional<User> findByUsername(String username){
+        return userRepository.findUserByUsername(username);
+    }
 
-    public User login(String login, String password){
+    @Transactional(readOnly = true)
 
-        User user = userRepository.findUserByLogin(login);
-        String hashPassword = Hash.toStringHash256(password);
+    public User login(String username, String password){
+        String passHash = passwordEncoder.encode(password);
 
-        if( hashPassword == null || user == null || user.getPassword().compareTo(hashPassword) != 0){
+        Optional<User> user = userRepository.findUserByUsername(username);
+
+        if(user.isEmpty() || user.get().getPassword().equals(passHash)){
             return null;
         }
-        return user;
+
+        return user.get();
     };
 
+    @Transactional
     public User registration(RegistrationDto registrationDto){
-        String hashPassword = Hash.toStringHash256(registrationDto.getPassword());
+        String hashPassword = passwordEncoder.encode(registrationDto.getPassword());
         if(hashPassword == null){
             return null;
         }
 
         User user = new User().builder()
-                .login(registrationDto.getLogin())
+                .username(registrationDto.getUsername())
                 .password(hashPassword)
                 .name(registrationDto.getName())
-                .role(Role.valueOf(registrationDto.getRole().toUpperCase().strip()))
+                .roles(roleService.getRolesFromString(registrationDto.getRole()))
                 .wallets(new ArrayList<>())
                     .build();
 
@@ -63,4 +76,6 @@ public class UserService {
 
         return userRepository.save(user);
     }
+
+
 }

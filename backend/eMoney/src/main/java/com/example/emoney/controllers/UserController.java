@@ -15,8 +15,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -31,43 +33,22 @@ public class UserController {
 
 
 
-    @GetMapping()
-    public ResponseEntity<List<UserReponseDto>> getAll(){
-
-        List<User> users = userService.getAll();
-        return new ResponseEntity<>(users.stream().map(i -> UserReponseDto.getDto(i)).toList(), HttpStatus.OK);
-    }
-
-    @PostMapping("/signup")
-    public ResponseEntity<UserReponseDto> registration(@RequestBody RegistrationDto registrationDto){
-        User user = userService.registration(registrationDto);
-
-        return new ResponseEntity<>(UserReponseDto.getDto(user), HttpStatus.OK);
-
-
-
-    }
-
-    @PostMapping("/login")
-    public ResponseEntity<UserReponseDto> login(@RequestBody Map<String, String> loginDto){
-        User user = userService.login(loginDto.get("login"), loginDto.get("password"));
-
-        return new ResponseEntity<>(UserReponseDto.getDto(user), HttpStatus.OK);
-
-    }
-
-
-
-
     // NEED TO SET UP SPRING SECURITY
     @PostMapping("/{walletPath}/transactions")
-    public ResponseEntity<WalletResponseDto> makeTransaction(@PathVariable Long walletPath,
-                                             @RequestBody CreateTransactionDto transDto){
+    public ResponseEntity<?> makeTransaction(@PathVariable Long walletPath,
+                                             @RequestBody CreateTransactionDto transDto,
+                                             Principal principal){
 
-        Wallet walletFound = walletService.findWalletById(walletPath).get();
-        Wallet wallet = walletService.saveWallet(walletFound.makeTransaction(transDto)) ;
+        Optional<Wallet> walletOptional = walletService.findWalletById(walletPath);
 
-        return new ResponseEntity<>(WalletResponseDto.getDto(wallet), HttpStatus.OK);
+
+        if(walletOptional.isPresent()) {
+            Wallet wallet = walletService.saveWallet(walletOptional.get().makeTransaction(transDto));
+            return new ResponseEntity<>(WalletResponseDto.getDto(wallet), HttpStatus.OK);
+
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
     }
 
 }

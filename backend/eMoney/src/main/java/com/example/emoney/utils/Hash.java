@@ -4,6 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class Hash {
+    
     public static String toStringHash256(String input) throws RuntimeException{
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
