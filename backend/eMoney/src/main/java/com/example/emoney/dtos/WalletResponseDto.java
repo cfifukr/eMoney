@@ -22,7 +22,8 @@ public class WalletResponseDto {
 
     private Currency currency;
 
-    private List<TransactionResponseDto> transactions;
+    private Integer numberTransactions;
+
 
 
     public static WalletResponseDto getDto(Wallet wallet){
@@ -31,10 +32,8 @@ public class WalletResponseDto {
                 .balance(wallet.getBalance())
                 .name(wallet.getName())
                 .currency(wallet.getCurrency())
+                .numberTransactions(wallet.getTransactions().size())
                 .build();
-
-        walletDto.setTransactions(wallet.getTransactions()
-                .stream().map(i -> TransactionResponseDto.getDto(i)).toList());
 
         return walletDto;
     }

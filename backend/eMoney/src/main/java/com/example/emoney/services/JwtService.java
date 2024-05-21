@@ -6,12 +6,10 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
-import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -20,9 +18,6 @@ import java.util.Map;
 @Service
 public class JwtService {
 
-    @Autowired
-    private RoleService roleService;
-
     private final String SECRET = "932dc44310f34a0e977b1fd2c1e83ab7ec991d04b04e78c9fefb397749c087e1";
 
     public String extractUsername(String token){
@@ -30,7 +25,7 @@ public class JwtService {
         return claims.getSubject();
     }
 
-    public List<Role> extractRoles(String token){
+    public List<Role> extractRoles(String token, RoleService roleService){
         String roles  = extractAllClaims(token).get("roles", String.class);
         List<Role> roleList = User.stringToRoles(roles, roleService).stream().toList();
         return roleList;

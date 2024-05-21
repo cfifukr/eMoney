@@ -3,6 +3,7 @@ package com.example.emoney.filters;
 import com.example.emoney.models.User;
 import com.example.emoney.repositories.UserRepository;
 import com.example.emoney.services.JwtService;
+import com.example.emoney.services.RoleService;
 import com.example.emoney.services.UserDetailsService;
 import com.example.emoney.services.UserService;
 import jakarta.servlet.FilterChain;
@@ -25,7 +26,9 @@ import java.io.IOException;
 public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
-    private final UserDetailsService userDetailsService;
+
+    private final RoleService roleService;
+
 
     @Override
     protected void doFilterInternal( @NonNull HttpServletRequest request,
@@ -44,7 +47,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         if(username != null && SecurityContextHolder.getContext().getAuthentication() == null){
             User user = new User();
             user.setUsername(jwtService.extractUsername(token));
-            user.setRoles(jwtService.extractRoles(token));
+            user.setRoles(jwtService.extractRoles(token, roleService));
 
             UserDetails userDetails = user;
 

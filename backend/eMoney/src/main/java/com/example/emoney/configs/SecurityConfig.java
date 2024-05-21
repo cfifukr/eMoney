@@ -27,7 +27,6 @@
 
         private final JwtAuthFilter jwtAuthFilter;
 
-        //private final CustomLogoutHandler logoutHandler;
 
 
 
@@ -51,11 +50,7 @@
                                             (request, response, accessDeniedException)->response.setStatus(403)
                                     )
                                     .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
-                    //.logout(l->l
-                    //         .logoutUrl("/logout")
-                    //        .addLogoutHandler(logoutHandler)
-                    //        .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext()
-                   //        ))
+
                     .build();
 
         }

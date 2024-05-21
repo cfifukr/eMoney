@@ -1,0 +1,30 @@
+
+.poetsen-font{
+    font-family: 'PoetsenOne', sans-serif;
+}
+
+.navbar{
+    background-color: #F3F4F6;
+}
+
+.bg-white{
+    background-color: #F3F4F6;
+}
+
+
+.bg-brown{
+    background-color: #A79B94;
+}
+
+.user-name{
+    font-size: large;
+}
+
+
+@font-face {
+    font-family: "PoetsenOne";
+    src: url('../font/PoetsenOne-Regular.ttf') format('truetype');
+  
+    font-style: normal;
+    font-weight: normal;
+  }

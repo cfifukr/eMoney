@@ -16,7 +16,7 @@ public class UserReponseDto {
     private String username;
     private String name;
     private String role;
-    private List<WalletResponseDto> walletResponseDto;
+    private List<WalletResponseDto> wallets;
 
     public static UserReponseDto getDto(User user){
         UserReponseDto dto = UserReponseDto.builder()
@@ -25,7 +25,7 @@ public class UserReponseDto {
                 .role(user.getRoles().toString())
                     .build();
 
-        dto.setWalletResponseDto(user.getWallets().stream()
+        dto.setWallets(user.getWallets().stream()
                 .map(i -> WalletResponseDto.getDto(i)).toList());
         return dto;
     }

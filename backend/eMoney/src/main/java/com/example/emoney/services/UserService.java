@@ -34,9 +34,16 @@ public class UserService{
     }
 
     @Transactional(readOnly = true)
-    public Optional<User> findByUsername(String username){
-        return userRepository.findUserByUsername(username);
+    public User findByUsername(String username){
+        Optional<User> user = userRepository.findUserByUsername(username);
+        return user.orElseThrow(null);
     }
+
+    @Transactional
+    public User saveUser(User user){
+        return userRepository.save(user);
+    }
+
 
     @Transactional(readOnly = true)
 
