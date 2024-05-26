@@ -4,6 +4,7 @@ import com.example.emoney.dtos.CreateTransactionDto;
 import com.example.emoney.enums.Currency;
 
 import com.example.emoney.enums.Operation;
+import com.example.emoney.services.JwtService;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -76,6 +77,22 @@ public class Wallet {
 
         this.addTransaction(transaction);
         return this;
+    }
+
+    public boolean belongToAuthTokenUser(String authToken, JwtService jwtService){
+        String username = jwtService.extractUsername(authToken.substring(7));
+        if(this.isUsernameEqual(username)){
+            return true;
+        }
+        return false;
+    }
+
+    public String getUserame(){
+        return this.getUser().getUsername();
+    }
+
+    public boolean isUsernameEqual(String usernameTwo){
+        return  getUserame().compareTo(usernameTwo) == 0;
     }
 
 }

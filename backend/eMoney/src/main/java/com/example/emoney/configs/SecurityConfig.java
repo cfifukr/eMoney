@@ -2,6 +2,7 @@
 
     import com.example.emoney.filters.JwtAuthFilter;
     import com.example.emoney.services.UserDetailsService;
+    import jakarta.servlet.http.HttpServletResponse;
     import lombok.RequiredArgsConstructor;
     import org.springframework.context.annotation.Bean;
     import org.springframework.context.annotation.Configuration;
@@ -28,8 +29,6 @@
         private final JwtAuthFilter jwtAuthFilter;
 
 
-
-
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
@@ -45,13 +44,7 @@
                     .sessionManagement(session->session
                             .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                     .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                    .exceptionHandling(
-                            e->e.accessDeniedHandler(
-                                            (request, response, accessDeniedException)->response.setStatus(403)
-                                    )
-                                    .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
-
-                    .build();
+                   .build();
 
         }
 

@@ -1,0 +1,63 @@
+
+.main-page {
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+  
+  .hero-section {
+    background-color: #4CAF50;
+    color: white;
+    padding: 50px 20px;
+  }
+  
+  .features, .how-it-works, .testimonials, .cta {
+    padding: 20px;
+  }
+  
+  .features ul, .how-it-works ol {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .features ul li, .how-it-works ol li {
+    margin: 15px 0;
+  }
+  
+  .testimonials blockquote {
+    border-left: 5px solid #4CAF50;
+    margin: 20px auto;
+    max-width: 600px;
+    padding-left: 15px;
+    text-align: left;
+  }
+  
+  .cta button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 20px 0;
+    cursor: pointer;
+  }
+  
+  .footer {
+    background-color: #f1f1f1;
+    padding: 20px;
+  }
+  
+  .footer nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #4CAF50;
+  }
+  
+  .footer .social-links a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #4CAF50;
+  }
+  

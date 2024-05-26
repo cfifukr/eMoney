@@ -40,10 +40,15 @@ public class User implements UserDetails {
     )
     private Collection<Role> roles;
 
-    public void addWallet(Wallet wallet) {
-        wallets.add(wallet);
-        wallet.setUser(this);
+    public void addWallet(Wallet wallet) throws RuntimeException{
+        if(wallets.size() < 5) {
+            wallets.add(wallet);
+            wallet.setUser(this);
+        }else{
+            throw new RuntimeException("User can have only 5 wallets");
+        }
     }
+
 
     public void removeWallet(Wallet wallet) {
         wallets.remove(wallet);

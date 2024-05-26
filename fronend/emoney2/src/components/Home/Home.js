@@ -1,35 +1,38 @@
 import React from "react";
+import "./Home.css"
 import { useState, useEffect } from "react";
-import "../Base.css"
-import "./Main.css"
 import api from "../../api/axios"
-import Wallets from "./Wallets";
+import Wallets from "./Wallets.js";
 import ChartBar from "./ChartBar";
+import { formatDate } from "../../utils/date.js";
+import {getConfig} from "../../utils/jwtToken.js"
+import AddWalletForm from "./AddWalletForm.js";
 
-function Main(){
-    const[user, setUser] = useState({});
-    const[expenses, setExpenses] = useState({});
-    const[incomes, setIncomes] = useState({});
+function Home({user, setUser}){
+
+    const [incomes, setIncomes] = useState({});
+    const [expenses, setExpenses] = useState({});
     const [loadedStat, setLoadedStat] = useState(true);
 
+    const fetchData = async () => {
+        const today = new Date();
+        const oneMonthAgo = new Date();
+        oneMonthAgo.setMonth(today.getMonth() - 1);
 
-    const jwtToken = 'eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJvbmUiLCJpYXQiOjE3MTYxNDc2ODQsImV4cCI6MTcxNjIzNDA4NCwicm9sZXMiOiJST0xFX0FETUlOLCAifQ.3d4jynZJJV4h4vBqj96B5qcMlMYFHSz9bRLyRCic08GVBU-HTytGKQCch3Yvwwob';
+        const todayFormatted = formatDate(today);
+        const anotherFormatted = formatDate(oneMonthAgo);
+        const period = `${todayFormatted}-${anotherFormatted}`;
 
-    const config = {
-        headers: {
-        'Authorization': `Bearer ${jwtToken}`
-    }
-    };
-    
-    const getExpenses = async () => {
+
+
         try {
-            const responseExp = await api.get("/api/v1/stat/expenses/2024_04_21-2024_05_21", config);
+            const responseExp = await api.get(`/api/v1/stat/expenses/${period}`, getConfig());
             const dataArrayExp = Object.entries(responseExp.data);
             const sortedDataExpArray = dataArrayExp.sort((a, b) => new Date(a[0]) - new Date(b[0]));
             const sortedDataExp = Object.fromEntries(sortedDataExpArray);
 
 
-            const responseInc = await api.get("/api/v1/stat/incomes/2024_04_21-2024_05_21", config);
+            const responseInc = await api.get(`/api/v1/stat/incomes/${period}`, getConfig());
             const dataArrayInc = Object.entries(responseInc.data);
             const sortedDataIncArray = dataArrayInc.sort((a, b) => new Date(a[0]) - new Date(b[0]));
             const sortedDataInc = Object.fromEntries(sortedDataIncArray);
@@ -42,19 +45,11 @@ function Main(){
         }
     };
 
-    const getUser = async () => {
-        try {
-            const response = await api.get("/api/v1/user", config);
-            setUser(response.data);
-        } catch (err) {
-            console.log(err);
-        }
-    };
 
     useEffect(() => {
-        getExpenses();
-        getUser();
+        fetchData()
     }, []);
+
 
     return <>
     
@@ -71,11 +66,13 @@ function Main(){
                 <div className="poetsen-font">
                     <h3 className="px-3">Wallets</h3>
                 </div>
-                <Wallets wallets={user.wallets} />
+                <Wallets wallets={user.wallets}/>
+
+                <AddWalletForm  setUser ={setUser} walletsSize={user.wallets?.length}/>
             </div>
         </div>
         </>
     
 }
 
-export default Main;
+export default Home;

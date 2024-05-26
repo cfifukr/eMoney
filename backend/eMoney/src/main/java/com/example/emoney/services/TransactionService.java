@@ -3,6 +3,7 @@ package com.example.emoney.services;
 import com.example.emoney.dtos.CreateTransactionDto;
 import com.example.emoney.enums.Operation;
 import com.example.emoney.models.Transaction;
+import com.example.emoney.models.Wallet;
 import com.example.emoney.repositories.TransactionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,13 @@ import java.util.List;
 public class TransactionService {
     private final TransactionRepository transactionRepository;
 
+    public List<Transaction> getTransactionsByWallet(Wallet wallet){
+        return transactionRepository.findTransactionsByWallet(wallet);
+    }
+
+    public Transaction saveTransaction(Transaction transaction){
+        return transactionRepository.save(transaction);
+    }
 
     public List<Transaction> getTransactionsByPeriod(String username, LocalDate start, LocalDate end){
         LocalDateTime ldtStart = LocalDateTime.of(start, LocalTime.of(0,0));
@@ -39,7 +47,6 @@ public class TransactionService {
 
         }
     }
-
 
 
 

@@ -1,0 +1,68 @@
+.statistic-container{
+    background-color: #F3F4F6;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin: 2rem;
+    
+}
+
+.wallets-container{
+    background-color: #F3F4F6;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin: 2rem;
+    height: 100%;
+    
+}
+
+.wallets {
+    border: 1px solid #A79B94;
+}
+
+.wallets .wallet-item {
+    background: #F3F4F6;
+}
+
+.wallets .custom-badge {
+    background-color: #A79B94 !important;
+    color: white;
+}
+
+.wallet-item .wallet-name {
+    max-width: 20rem;
+    overflow: hidden;
+}
+
+.add-plus{
+    color: #A79B94;
+    font-size: xx-large;
+
+}
+.add-text{
+    color: #A79B94;
+    font-size: 200;
+    text-decoration: none;
+}
+.modal-alert{
+    width: 80%;
+    font-size: medium;
+    padding-bottom: 0;
+}
+
+.modal-button{
+    padding: auto;
+    background-color: #689EB8;
+    border: 1px solid #598ba3;
+}
+
+.modal .modal-button:hover{
+    padding: auto;
+    background-color: #5a8faa;
+    border: 1px solid #49768c;
+}
+
+.modal .modal-button:focus {
+    padding: auto;
+    background-color: #5a8faa;
+    border: 1px solid #49768c;
+}

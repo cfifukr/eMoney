@@ -45,22 +45,29 @@ public class WalletController {
     public ResponseEntity<?> addWallets(@RequestHeader(HttpHeaders.AUTHORIZATION) String authHeader,
                                         @RequestBody WalletDto walletDto){
 
+        try{
+            String username = jwtService.extractUsername(authHeader.substring(7));
 
-        String username = jwtService.extractUsername(authHeader.substring(7));
+            User user = userService.findByUsername(username);
 
-        User user = userService.findByUsername(username);
+            Wallet wallet = new Wallet();
+            wallet.setName(walletDto.getName());
+            wallet.setCurrency(Currency.valueOf(walletDto.getCurrency().toUpperCase().trim()));
+            wallet.setBalance(0.00);
+            wallet.setUser(user);
 
-        Wallet wallet = new Wallet();
-        wallet.setName(walletDto.getName());
-        wallet.setCurrency(Currency.valueOf(walletDto.getCurrency().toUpperCase().trim()));
-        wallet.setBalance(0.00);
-        wallet.setUser(user);
-        Wallet walletSaved = walletService.saveWallet(wallet);
+            user.addWallet(wallet);
+            walletService.saveWallet(wallet);
+            userService.saveUser(user);
+            return ResponseEntity.ok(UserReponseDto.getDto(user));
 
-        user.addWallet(walletSaved);
-        userService.saveUser(user);
+        }catch (RuntimeException e){
+            return ResponseEntity.ok(ResponseEntity.ok(new ExceptionDto(HttpStatus.BAD_REQUEST.value(),
+                    "User can have only 5 wallets" )));
+        }
 
-        return ResponseEntity.ok(UserReponseDto.getDto(user));
+
+
 
 
     }
@@ -71,7 +78,7 @@ public class WalletController {
         String username = jwtService.extractUsername(authHeader.substring(7));
         Wallet wallet = walletService.findWalletById(wallet_id);
 
-        if(wallet.getUser().getUsername().compareTo(username)==0){
+        if(wallet.isUsernameEqual(username)){
             walletService.deleteWallet(wallet);
             return ResponseEntity.ok("Deleted successfully");
 
@@ -87,7 +94,7 @@ public class WalletController {
 
         Wallet wallet = walletService.findWalletById(wallet_id);
 
-        if(wallet.getUser().getUsername().compareTo(username)==0){
+        if(wallet.isUsernameEqual(username)){
             return ResponseEntity.ok(WalletResponseDto.getDto(wallet));
         }
         return ResponseEntity.ok

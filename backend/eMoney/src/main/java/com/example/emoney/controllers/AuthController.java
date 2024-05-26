@@ -42,11 +42,13 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> registration(@RequestBody RegistrationDto registrationDto){
-        if(userService.findByUsername(registrationDto.getUsername()) == null){
-            return new ResponseEntity<>(new ExceptionDto(HttpStatus.IM_USED.value(), "User with such username was already created"), HttpStatus.OK);
-        }
+
 
         User user = userService.registration(registrationDto);
+
+        if(user == null){
+            return new ResponseEntity<>(new ExceptionDto(HttpStatus.IM_USED.value(), "User with such username was already created"), HttpStatus.OK);
+        }
 
         String token = jwtService.generateToken(user);
 
@@ -58,20 +60,14 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody Map<String, String> loginDto){
 
         User user = userService.login(loginDto.get("username"), loginDto.get("password"));
-        //log.info(user.getUsername() + " " + user.getPassword() + " " + user.getName() +  " " +user.getRoles().toString());
-
         if(user == null){
-            return new ResponseEntity<>(new ExceptionDto(HttpStatus.NOT_FOUND.value(),
-                    String.format("User with username: '%s' and password wasn't found", loginDto.get("username"))), HttpStatus.OK);
+            return ResponseEntity.ok(new ExceptionDto(HttpStatus.NOT_FOUND.value(),
+                    String.format("User with username: '%s' and password wasn't found", loginDto.get("username"))));
         }
         String token = jwtService.generateToken(user);
 
 
         return new ResponseEntity<>(new AuthenticationResponseDto(token), HttpStatus.OK);
 
-    }
-    @GetMapping("/info")
-    public String info(Principal principal){
-        return principal.toString();
     }
 }

@@ -5,6 +5,7 @@ import com.example.emoney.enums.Currency;
 import com.example.emoney.models.User;
 import com.example.emoney.models.Wallet;
 import com.example.emoney.repositories.UserRepository;
+import com.example.emoney.utils.Hash;
 import lombok.RequiredArgsConstructor;
 
 
@@ -36,7 +37,10 @@ public class UserService{
     @Transactional(readOnly = true)
     public User findByUsername(String username){
         Optional<User> user = userRepository.findUserByUsername(username);
-        return user.orElseThrow(null);
+        if(user.isEmpty()){
+            return null;
+        }
+        return user.get();
     }
 
     @Transactional
@@ -46,13 +50,13 @@ public class UserService{
 
 
     @Transactional(readOnly = true)
-
     public User login(String username, String password){
-        String passHash = passwordEncoder.encode(password);
+        String passHash = Hash.toStringHash256(password);
+        System.out.println(passHash);
 
         Optional<User> user = userRepository.findUserByUsername(username);
 
-        if(user.isEmpty() || user.get().getPassword().equals(passHash)){
+        if(user.isEmpty() || user.get().getPassword().compareTo(passHash) !=0){
             return null;
         }
 
@@ -61,20 +65,22 @@ public class UserService{
 
     @Transactional
     public User registration(RegistrationDto registrationDto){
-        String hashPassword = passwordEncoder.encode(registrationDto.getPassword());
-        if(hashPassword == null){
+
+        String hashPassword =Hash.toStringHash256(registrationDto.getPassword());
+
+        if(userRepository.existsByUsername(registrationDto.getUsername()) || hashPassword == null){
             return null;
         }
+
+
 
         User user = new User().builder()
                 .username(registrationDto.getUsername())
                 .password(hashPassword)
                 .name(registrationDto.getName())
-                .roles(roleService.getRolesFromString(registrationDto.getRole()))
+                .roles(roleService.getRolesFromString("ROLE_USER"))
                 .wallets(new ArrayList<>())
                     .build();
-
-
 
         Wallet wallet = Wallet.createWallet("Default wallet", Currency.UAH);
         user.addWallet(wallet);
