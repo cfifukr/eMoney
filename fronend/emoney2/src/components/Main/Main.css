@@ -45,19 +45,8 @@
   }
   
   .footer {
-    background-color: #f1f1f1;
-    padding: 20px;
+    position:relative;
+    margin-top: 5rem;
   }
   
-  .footer nav a {
-    margin: 0 15px;
-    text-decoration: none;
-    color: #4CAF50;
-  }
-  
-  .footer .social-links a {
-    margin: 0 10px;
-    text-decoration: none;
-    color: #4CAF50;
-  }
   

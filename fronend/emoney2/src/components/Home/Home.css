@@ -1,4 +1,19 @@
+
 .statistic-container{
+    background-color: #F3F4F6;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin: 2rem;
+}
+
+.statistic-container, .right-side-container-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.custom-container .right-side-container{
     background-color: #F3F4F6;
     border-radius: 1rem;
     padding: 2rem;
@@ -6,13 +21,11 @@
     
 }
 
-.wallets-container{
-    background-color: #F3F4F6;
-    border-radius: 1rem;
-    padding: 2rem;
-    margin: 2rem;
-    height: 100%;
-    
+.underline {
+    width: 100%;
+    display: inline-block;
+    border-bottom: 2px solid #A79B94;
+    margin-top: 0;
 }
 
 .wallets {

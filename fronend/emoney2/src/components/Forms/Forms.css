@@ -1,12 +1,13 @@
 .custom-form{
     margin: auto;
-    margin-top: 1.5rem;
+    margin-top: 10%;
     background-color: #F3F4F6;
     padding: 3rem;
     border: 2px solid #A79B94;
     border-radius: 1rem;
 
 }
+
 
 .custom-form .input{
     margin: auto;

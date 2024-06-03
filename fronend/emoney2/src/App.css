@@ -1,8 +1,31 @@
 
 
+
+
 .poetsen-font{
   font-family: 'PoetsenOne', sans-serif;
 }
+
+.reddit-regular-font{
+  font-family: 'RedditMonoRegular', sans-serif;
+}
+.reddit-medium-font{
+  font-family: 'RedditMonoMedium', sans-serif;
+}
+.reddit-semibold-font{
+  font-family: 'RedditMonoSemibold', sans-serif;
+}
+.reddit-bold-font{
+  font-family: 'RedditMonoBold', sans-serif;
+}
+.reddit-light-font{
+  font-family: 'RedditMonoLight', sans-serif;
+}
+.reddit-black-font{
+  font-family: 'RedditMonoBlack', sans-serif;
+}
+
+
 
 
 .bg-white{
@@ -24,13 +47,68 @@
 }
 
 
+.footer-container{
+  width: 100%;
+  position: fixed;
+  bottom: 0;
 
+}
+
+
+@font-face {
+  font-family: "RedditMonoRegular";
+  src: url('./font/RedditMono-Regular.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+}
+
+
+@font-face {
+  font-family: "RedditMonoMedium";
+  src: url('./font/RedditMono-Medium.ttf') format('truetype');
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "RedditMonoSemibold";
+  src: url('./font/RedditMono-SemiBold.ttf') format('truetype');
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "RedditMonoBold";
+  src: url('./font/RedditMono-Bold.ttf') format('truetype');
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "RedditMonoLight";
+  src: url('./font/RedditMono-Light.ttf') format('truetype');
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "RedditMonoMedium";
+  src: url('./font/RedditMono-Medium.ttf') format('truetype');
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "RedditMonoBlack";
+  src: url('./font/RedditMono-Black.ttf') format('truetype');
+  font-style: normal;
+  font-weight: normal;
+}
 
 
 @font-face {
   font-family: "PoetsenOne";
   src: url('./font/PoetsenOne-Regular.ttf') format('truetype');
-
   font-style: normal;
   font-weight: normal;
 }

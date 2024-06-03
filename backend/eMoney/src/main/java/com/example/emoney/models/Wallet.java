@@ -95,4 +95,7 @@ public class Wallet {
         return  getUserame().compareTo(usernameTwo) == 0;
     }
 
+    public String getStringCurrency(){
+        return currency.getValue();
+    }
 }

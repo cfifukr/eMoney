@@ -15,6 +15,10 @@ public class Stat {
                                                                    LocalDate start,
                                                                    LocalDate end){
 
+        String jsonCurr = CurrenciesNbu.getCurrenciesJson();
+        List<CurrencyParseObj> parsedCurr = CurrenciesNbu.parseCurrencies(jsonCurr);
+        Map<String, Double> currenciesMap = CurrenciesNbu.getMapRequiredCurrByCode(parsedCurr,
+                "USD", "EUR", "UAH");
         Map<String, Double> statistic = new HashMap<>();
         List<LocalDate> dates = (start.isBefore(end)? start.datesUntil(end).toList() : end.datesUntil(start).toList());
 
@@ -26,8 +30,14 @@ public class Stat {
         //transaction list to map  + counting by day
         for(Transaction transaction: listTrans){
             String key = transaction.getCreatedTime().format(dateTimeFormatter);
-            Double value = statistic.getOrDefault(key, 0.00) +
-                    (transaction.getOperation() == Operation.IN ? transaction.getMoney() : transaction.getMoney()*(-1));
+            double value = 0.00;
+            if(statistic.get(key) !=null){
+                //convert all curr to UAH
+                 value = transaction.getMoney()
+                        * currenciesMap.get(transaction.getWallet().getStringCurrency())
+                        * (transaction.getOperation() == Operation.IN ? 1 : (-1));
+
+            }
             statistic.put(key, value);
         }
 

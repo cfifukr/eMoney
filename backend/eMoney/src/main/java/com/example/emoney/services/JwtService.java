@@ -20,6 +20,11 @@ public class JwtService {
 
     private final String SECRET = "932dc44310f34a0e977b1fd2c1e83ab7ec991d04b04e78c9fefb397749c087e1";
 
+
+    public String extractUsernameFromAuthHeader(String authHeader){
+        Claims claims = extractAllClaims(authHeader.substring(7));
+        return claims.getSubject();
+    }
     public String extractUsername(String token){
         Claims claims = extractAllClaims(token);
         return claims.getSubject();

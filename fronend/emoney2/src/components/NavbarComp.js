@@ -14,13 +14,13 @@ function NavbarComp({user, setUser}){
     }
     
     return <>
-            <Navbar className= "navbar poetsen-font bg-white" data-bs-theme="light">
+            <Navbar className= "navbar poetsen-font bg-light" data-bs-theme="light">
                 <Container>
                 <Navbar.Brand href="/" ><h3>eMoney</h3></Navbar.Brand>
                 <Nav className="me-auto">
                     <Nav.Link href="/home">Home</Nav.Link>
-                    <Nav.Link href="#features">Features</Nav.Link>
                     <Nav.Link href="#pricing">Statistic</Nav.Link>
+                    <Nav.Link href="/blog">Blog</Nav.Link>
                 </Nav>
                 
                 <Nav className="d-flex justify-content-center">

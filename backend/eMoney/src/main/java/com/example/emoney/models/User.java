@@ -32,6 +32,9 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Wallet> wallets = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Goal> goals = new ArrayList<>();
+
     @ManyToMany
     @JoinTable(
             name = "user_roles",
@@ -52,8 +55,19 @@ public class User implements UserDetails {
 
     public void removeWallet(Wallet wallet) {
         wallets.remove(wallet);
-        wallet.setUser(null);
+        wallet.setUser(this);
     }
+
+    public void addGoal(Goal goal){
+        goal.setUser(this);
+        goals.add(goal);
+    }
+
+    public void deleteGoal(Goal goal){
+        goal.setUser(null);
+        goals.remove(goal);
+    }
+
 
     public static String rolesToString(Collection<Role> roles){
         String res = "";

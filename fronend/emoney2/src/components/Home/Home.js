@@ -4,9 +4,12 @@ import { useState, useEffect } from "react";
 import api from "../../api/axios"
 import Wallets from "./Wallets.js";
 import ChartBar from "./ChartBar";
-import { formatDate } from "../../utils/date.js";
+import { formatDate, addDays, subtractDays } from "../../utils/date.js";
 import {getConfig} from "../../utils/jwtToken.js"
 import AddWalletForm from "./AddWalletForm.js";
+import UserGeneralStat from "./UserGeneralStat.js";
+import Goals from "./Goals.js";
+import FooterComp from "../FooterComp.js"
 
 function Home({user, setUser}){
 
@@ -15,12 +18,15 @@ function Home({user, setUser}){
     const [loadedStat, setLoadedStat] = useState(true);
 
     const fetchData = async () => {
-        const today = new Date();
-        const oneMonthAgo = new Date();
-        oneMonthAgo.setMonth(today.getMonth() - 1);
+        const first = new Date();
+        const second = new Date();
+
+        const today = addDays(first, 1);
+        const forteenDaysAgo = subtractDays(second, 13);
+    
 
         const todayFormatted = formatDate(today);
-        const anotherFormatted = formatDate(oneMonthAgo);
+        const anotherFormatted = formatDate(forteenDaysAgo);
         const period = `${todayFormatted}-${anotherFormatted}`;
 
 
@@ -53,24 +59,42 @@ function Home({user, setUser}){
 
     return <>
     
-        <div className="custom-container row">
-            <div className="statistic-container col-7 ">
-                {loadedStat ? (
-                    <div>Loading chart...</div> 
-                ) : (
-                    <ChartBar expenses={expenses} incomes = {incomes}/>
-                )}
-            </div>
-
-            <div className="wallets-container col">
-                <div className="poetsen-font">
-                    <h3 className="px-3">Wallets</h3>
+        <div className="custom-container row ">
+            <div className="col-7 ">
+                <div className="statistic-container">
+                    {loadedStat ? (
+                        <div>Loading chart...</div> 
+                    ) : (
+                        <ChartBar expenses={expenses} incomes = {incomes}/>
+                    )}
                 </div>
-                <Wallets wallets={user.wallets}/>
-
-                <AddWalletForm  setUser ={setUser} walletsSize={user.wallets?.length}/>
+                <div className="statistic-container">
+                    <div className="poetsen-font text-center">
+                        <h3>Set goals to achieve them faster</h3>
+                    </div>
+                        <Goals/>
+                </div>
             </div>
+            
+
+            
+            <div className=" right-side-container-wrappe col-5 mb-5">
+            
+                <div className="right-side-container">
+                    <div className="poetsen-font">
+                        <h3 className="px-3 text-center">Wallets</h3>
+                    </div>
+                    <Wallets wallets={user.wallets}/>
+
+                    <AddWalletForm  setUser ={setUser} walletsSize={user.wallets?.length}/>
+                </div>
+
+
+            </div>
+
         </div>
+        <FooterComp/>
+
         </>
     
 }

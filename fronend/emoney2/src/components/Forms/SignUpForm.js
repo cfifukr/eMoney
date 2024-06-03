@@ -5,6 +5,7 @@ import { Row, Col, InputGroup, Form, Button, Alert } from "react-bootstrap";
 import api from "../../api/axios"
 import { useNavigate } from "react-router-dom";
 import { getUserFromToken, getConfig } from "../../utils/jwtToken";
+import FooterComp from "../FooterComp";
 
 
 function SignUpForm({setUser}){
@@ -116,6 +117,9 @@ function SignUpForm({setUser}){
         
                     
         </Row>
+        <div className="footer-container">
+            <FooterComp/>
+        </div>
     
     </>
 }
