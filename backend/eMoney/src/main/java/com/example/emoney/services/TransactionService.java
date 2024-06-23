@@ -7,6 +7,8 @@ import com.example.emoney.models.Wallet;
 import com.example.emoney.repositories.TransactionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -21,6 +23,24 @@ public class TransactionService {
 
     public List<Transaction> getTransactionsByWallet(Wallet wallet){
         return transactionRepository.findTransactionsByWallet(wallet);
+    }
+
+    public Page<Transaction> getTransactionsByWalletAndDate(Wallet wallet,
+                                                            LocalDate dateStart,
+                                                            LocalDate dateEnd,
+                                                            Pageable pageable){
+        if(dateEnd.isBefore(dateEnd)){
+            return transactionRepository.findTransactionsByWalletAndDate(
+                    wallet.getId(),
+                    LocalDateTime.of(dateStart.plusDays(1), LocalTime.of(0,0)),
+                    LocalDateTime.of(dateEnd.plusDays(1), LocalTime.of(0,0)),
+                    pageable);
+        }
+        return transactionRepository.findTransactionsByWalletAndDate(
+                wallet.getId(),
+                LocalDateTime.of(dateEnd, LocalTime.of(0,0)),
+                LocalDateTime.of(dateStart.plusDays(1), LocalTime.of(0,0)),
+                pageable);
     }
 
     public Transaction saveTransaction(Transaction transaction){

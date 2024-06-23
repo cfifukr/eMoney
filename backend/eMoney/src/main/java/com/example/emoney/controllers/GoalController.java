@@ -38,7 +38,7 @@ public class GoalController {
         Page<Goal> goals = goalService.getGoalsByUser(username, page, size);
         System.out.println(goals);
         Integer totalGoals = goalService.getTotalGoalsFromUser(username);
-        GoalPageDto result = new GoalPageDto(totalGoals,
+        GoalPageDto result = new GoalPageDto((long) totalGoals,
                 Math.ceilDiv(totalGoals, size),
                 page,
                 goals.stream().map(i -> GoalResponseDto.getDto(i)).toList());

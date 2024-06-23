@@ -46,7 +46,7 @@ public class TransactionController {
         Wallet wallet  = walletService.findWalletById(wallet_id);
         Transaction transaction = transactionDto.getTransaction(wallet);
         if(wallet.belongToAuthTokenUser(authToken, jwtService)) {
-            return ResponseEntity.ok(transactionService.saveTransaction(transaction));
+            return ResponseEntity.ok(TransactionResponseDto.getDto(transactionService.saveTransaction(transaction)));
         }
         return ResponseEntity.ok(new ExceptionDto(1, "U dont have access to this wallet"));
     }

@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TransactionResponseDto {
+    private Long id;
     private Double money;
     private Operation operation;
     private String description;
@@ -21,6 +22,7 @@ public class TransactionResponseDto {
 
     public static TransactionResponseDto getDto(Transaction transaction){
         TransactionResponseDto dto = TransactionResponseDto.builder()
+                .id(transaction.getId())
                 .money(transaction.getMoney())
                 .description(transaction.getDescription())
                 .operation(transaction.getOperation())

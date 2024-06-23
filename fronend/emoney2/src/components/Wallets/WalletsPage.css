@@ -1,0 +1,58 @@
+
+.sidebar {
+    height: 100vh;
+    z-index: 1;
+}
+
+.currency-icon{
+    width: 20px;
+    height: 20px;
+    color: #F3F4F6;
+}
+
+
+.sidebar-container {
+    height: 100%;
+}
+
+
+.nav-item > .active{
+    background-color: #689EB8  !important;
+
+}
+.chart{
+    background-color: #F3F4F6;
+    border-radius: 1rem;
+    max-height: 25rem;
+    width: 90%;
+    border: 1px solid #A79B94;
+    margin: 0 1rem;
+    padding: 0.5rem;
+}
+
+
+.transactions-container{
+    background-color: #F3F4F6;
+}
+.footer{
+    margin-top: 0;
+}
+.chart-bar{
+    width: 100%;
+    margin: 1rem auto;
+}
+
+.stat-container{
+    width: 90%;
+    margin: 0 1rem;
+    border-radius: 1rem;
+    max-height: 25rem;
+}
+
+@media (max-width:768px) { 
+    .sidebar{
+        height: 100%;
+    }
+}
+
+

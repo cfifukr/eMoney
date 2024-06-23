@@ -3,7 +3,7 @@ import { getConfig } from "../../utils/jwtToken";
 import { Form, Modal, Button, Alert } from "react-bootstrap";
 import { useState } from "react";
 import { CiSquarePlus } from "react-icons/ci";
-import "./Home.css"
+import "../Forms/ModalForms.css";
 import api from "../../api/axios"
 
 function AddWalletForm({walletsSize, setUser}){

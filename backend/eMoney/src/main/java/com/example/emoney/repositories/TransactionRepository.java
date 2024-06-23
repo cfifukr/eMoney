@@ -3,6 +3,8 @@ package com.example.emoney.repositories;
 import com.example.emoney.enums.Operation;
 import com.example.emoney.models.Transaction;
 import com.example.emoney.models.Wallet;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -34,4 +36,13 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
     List<Transaction> findTransactionsByPeriodAndUser(@Param("username") String username,
                                                       @Param("dateStart") LocalDateTime dateStart,
                                                       @Param("dateEnd") LocalDateTime dateEnd);
+
+
+    @Query("SELECT x FROM Transaction x " +
+            "WHERE x.wallet.id =:walletId " +
+            "AND x.createdTime BETWEEN :dateStart AND :dateEnd")
+    Page<Transaction> findTransactionsByWalletAndDate(@Param("walletId") Long walletId,
+                                                      @Param("dateStart") LocalDateTime dateStart,
+                                                      @Param("dateEnd") LocalDateTime dateEnd,
+                                                      Pageable pageable);
 }

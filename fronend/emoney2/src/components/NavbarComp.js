@@ -19,8 +19,9 @@ function NavbarComp({user, setUser}){
                 <Navbar.Brand href="/" ><h3>eMoney</h3></Navbar.Brand>
                 <Nav className="me-auto">
                     <Nav.Link href="/home">Home</Nav.Link>
-                    <Nav.Link href="#pricing">Statistic</Nav.Link>
-                    <Nav.Link href="/blog">Blog</Nav.Link>
+                    <Nav.Link href="/wallets">Wallets</Nav.Link>
+                    <Nav.Link href="/blogs">Blogs</Nav.Link>
+                    <Nav.Link href="/add_blog">Write Blog</Nav.Link>
                 </Nav>
                 
                 <Nav className="d-flex justify-content-center">

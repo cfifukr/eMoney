@@ -9,12 +9,12 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 abstract class PageDto {
-    Integer total;
+    Long total;
     Integer totalPage;
     Integer currentPage;
     List<?> list;
 
-    public PageDto(Integer total, Integer totalPage, Integer currentPage, List<?> list) {
+    public PageDto(Long total, Integer totalPage, Integer currentPage, List<?> list) {
         this.total = total;
         this.totalPage = totalPage;
         this.currentPage = currentPage;

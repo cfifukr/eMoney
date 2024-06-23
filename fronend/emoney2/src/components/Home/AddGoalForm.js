@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Modal, Button, Alert } from "react-bootstrap";
 import { CiSquarePlus } from "react-icons/ci";
-import "./Home.css";
+import "../Forms/ModalForms.css";
 import api from "../../api/axios";
 import { getConfig } from "../../utils/jwtToken";
 
@@ -100,7 +100,7 @@ function AddGoalForm({ goalsDto, setGoalsDto, set }) {
                                 <option value="">Select currency</option>
                                 <option value="USD">USD</option>
                                 <option value="EUR">EUR</option>
-                                <option value="GBP">GBP</option>
+                                <option value="UAH">UAH</option>
                             </Form.Control>
                         </Form.Group>
                         <Button variant="primary" type="submit" className="mt-3 modal-button">

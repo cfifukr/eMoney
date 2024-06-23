@@ -1,6 +1,6 @@
 .custom-form{
     margin: auto;
-    margin-top: 10%;
+    margin:5% 0;
     background-color: #F3F4F6;
     padding: 3rem;
     border: 2px solid #A79B94;
@@ -60,3 +60,15 @@
     background-color: #3a7998;
     border: 1px solid #689EB8;
 }
+
+.component-add-button{
+    border-color: #a79b9489;
+    background-color: #a79b9489;
+    color: #FFFFFF;
+}
+.component-add-button:hover, .component-add-button:active{
+    background-color: #8b807a !important; 
+}
+
+
+   

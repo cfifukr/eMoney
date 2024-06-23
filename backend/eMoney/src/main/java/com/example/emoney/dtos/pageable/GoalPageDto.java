@@ -8,7 +8,7 @@ import java.util.List;
 
 @NoArgsConstructor
 public class GoalPageDto extends PageDto{
-    public GoalPageDto(Integer total, Integer totalPage, Integer currentPage, List<GoalResponseDto> responseDtos) {
+    public GoalPageDto(Long total, Integer totalPage, Integer currentPage, List<GoalResponseDto> responseDtos) {
         super(total, totalPage, currentPage, responseDtos);
     }
 

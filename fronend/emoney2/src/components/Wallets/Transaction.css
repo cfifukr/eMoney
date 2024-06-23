@@ -1,0 +1,51 @@
+.transactions {
+    border: 1px solid #84cc16;
+    width: 90%;
+    margin: 1rem auto;
+
+}
+.transactions-container {
+    border-radius: 1rem;
+    border: 1px solid #84cc16;
+    width: 100%;
+}
+
+
+.transactions .transaction-item {
+    background: #F3F4F6;
+}
+
+.transactions .custom-badge {
+    background-color: #84c02a !important;
+    color: white;
+}
+
+.transaction-text {
+    max-width: 80%;
+    max-height: 1.4rem;
+    overflow-x: hidden;
+    word-wrap: break-word;
+    overflow-y: scroll;
+}
+
+ .transaction-name {
+    max-width: 20rem;
+    overflow: hidden;
+}
+
+.add-transaction-item{
+    text-align: center;
+    width: 100%;
+}
+
+.transaction-item-add{
+    background:#bee179;
+    border:0;
+    border-radius:0 0 0.2rem 0.2rem
+    
+}
+.transaction-item-add:hover{
+    background:#84c02a;
+    
+}
+

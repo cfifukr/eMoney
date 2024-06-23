@@ -7,9 +7,9 @@ import ChartBar from "./ChartBar";
 import { formatDate, addDays, subtractDays } from "../../utils/date.js";
 import {getConfig} from "../../utils/jwtToken.js"
 import AddWalletForm from "./AddWalletForm.js";
-import UserGeneralStat from "./UserGeneralStat.js";
 import Goals from "./Goals.js";
 import FooterComp from "../FooterComp.js"
+import Currency from "./Currency.js";
 
 function Home({user, setUser}){
 
@@ -60,7 +60,7 @@ function Home({user, setUser}){
     return <>
     
         <div className="custom-container row ">
-            <div className="col-7 ">
+            <div className="col-lg-7 col-md-12 ">
                 <div className="statistic-container">
                     {loadedStat ? (
                         <div>Loading chart...</div> 
@@ -68,7 +68,7 @@ function Home({user, setUser}){
                         <ChartBar expenses={expenses} incomes = {incomes}/>
                     )}
                 </div>
-                <div className="statistic-container">
+                <div className="statistic-container g-0">
                     <div className="poetsen-font text-center">
                         <h3>Set goals to achieve them faster</h3>
                     </div>
@@ -78,7 +78,7 @@ function Home({user, setUser}){
             
 
             
-            <div className=" right-side-container-wrappe col-5 mb-5">
+            <div className=" right-side-container-wrappe col-lg-5 col-md-12 mb-5">
             
                 <div className="right-side-container">
                     <div className="poetsen-font">
@@ -90,11 +90,15 @@ function Home({user, setUser}){
                 </div>
 
 
+                <div className="right-side-container">
+                    <Currency/>
+                </div>
+
+
             </div>
 
         </div>
         <FooterComp/>
-
         </>
     
 }

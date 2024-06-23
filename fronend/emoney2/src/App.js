@@ -8,7 +8,12 @@ import LoginForm from './components/Forms/LoginForm';
 import SignUpForm from './components/Forms/SignUpForm';
 import NavbarComp from './components/NavbarComp';
 import Logout from './Logout';
-
+import Blogs from './components/Blog/Blogs';
+import Article from './components/Blog/Article';
+import BlogForm from './components/Forms/BlogForm';
+import WalletsPage from './components/Wallets/WalletsPage';
+import About from './components/OneComponentPage/About';
+import PrivacyPolicy from './components/OneComponentPage/PrivacyPolicy';
 
 
 function App() {
@@ -35,6 +40,14 @@ function App() {
       element:<Home user={user} setUser={setUser}/>
     },
     {
+      path:"/blogs",
+      element:<Blogs/>
+    },
+    {
+      path:"/blogs/:id",
+      element:<Article/>
+    },
+    {
       path:"/login",
       element:<LoginForm setUser={setUser}/>
     },
@@ -46,6 +59,23 @@ function App() {
       path:"/logout",
       element:<Logout/>
     },
+    {
+      path:"/add_blog",
+      element:<BlogForm/>
+    },
+    {
+      path:"/wallets",
+      element:<WalletsPage/>
+    },
+    {
+      path:"/about",
+      element:<About/>
+    },
+    {
+      path:"/privacy-policy",
+      element:<PrivacyPolicy/>
+    }
+
 
   ]);
 
@@ -56,8 +86,6 @@ function App() {
       <NavbarComp user={user} setUser={setUser}/>
       <RouterProvider router={router}/>
   
-
-
       
     </>
   );
