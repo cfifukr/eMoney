@@ -7,4 +7,4 @@
 /dataSources/
 /dataSources.local.xml
 
-../backend/eMoney/src/main/resources/application.properties
+/backend/eMoney/src/main/resources/application.properties
