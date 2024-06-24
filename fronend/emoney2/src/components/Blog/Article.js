@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import api from "../../api/axios"
-import { getConfig } from "../../utils/jwtToken";
+import { getConfig, isJwtToken } from "../../utils/jwtToken";
 import FooterComp from "../FooterComp";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Alert } from "react-bootstrap";
 import Header from "./components_article/Header"
 import Text from "./components_article/Text"
 import Image from "./components_article/Image"
 import "./Article.css"
 import Comments from "./Comments";
-import AddCommentForm from "./AddCommentForm";
-
 
 
 function Article(){
@@ -19,6 +17,19 @@ function Article(){
     const [plan , setPlan] = useState([]);
     const [totalPages, setTotalPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(0);
+    const [isLogged, setIsLogged] = useState(false);
+
+    const checkToken = async () => {
+        try {
+            const tokenExists = await isJwtToken();
+            setIsLogged(tokenExists);
+        } catch (error) {
+            console.error("Error checking JWT token:", error);
+            setIsLogged(false); 
+        }
+    };
+
+
 
     let counter = 0;    
     const getBlog = async(blog_id) =>{
@@ -35,12 +46,12 @@ function Article(){
 
     useEffect(()=>{
         getBlog(id);
+        checkToken();
     },[]);
 
 
     return <>
-        {console.log(totalPages)}
-        <div className="container-page" style={{marginBottom:"1rem", minHeight: "80vh"}}>
+        { isLogged ? <div className="container-page" style={{marginBottom:"1rem", minHeight: "80vh"}}>
             <div className="banner">
                 <img src="https://t3.ftcdn.net/jpg/05/36/62/62/360_F_536626246_O8ndHiA0gT5uGz1F9HaJXA1Jq9gmH0S6.jpg" alt="Banner Image"/>
             </div>
@@ -89,12 +100,15 @@ function Article(){
             {currentPage + 1 < totalPages ? (
                     <button type="button" onClick={() => {setCurrentPage(currentPage + 1)}} class="more-button">Show more</button>
             ) : ""}
-
-
-            
-            
-            
             </div>
+            :
+
+            <div style={{height:"80vh"}}>
+                <Alert variant="danger" className="px-auto text-center" style={{margin:"4rem 4rem"}}>
+                    <h2 className="reddit-bold-font">Firstly, you need to login</h2>
+                </Alert>
+            </div>}
+
             
 
 

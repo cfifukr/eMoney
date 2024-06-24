@@ -47,6 +47,8 @@
     overflow: hidden;
 }
 
+
+
 @media (min-width:576px) { 
     .custom-container .right-side-container{
         margin-top: 2rem;

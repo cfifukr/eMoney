@@ -79,16 +79,7 @@ function AddGoalForm({ goalsDto, setGoalsDto, set }) {
                                 required
                             />
                         </Form.Group>
-                        <Form.Group controlId="goalMoney">
-                            <Form.Label>Goal Amount</Form.Label>
-                            <Form.Control
-                                type="number"
-                                name="money"
-                                value={goalMoney}
-                                onChange={(e) => setGoalMoney(e.target.value)}
-                                required
-                            />
-                        </Form.Group>
+                        
                         <Form.Group controlId="goalCurrency">
                             <Form.Label>Currency</Form.Label>
                             <Form.Control

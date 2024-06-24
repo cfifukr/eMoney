@@ -41,11 +41,45 @@ function ChartDoughnut({transactionsList}){
                 borderWidth: 1,
             },
         ],
+        ready() {
+            window.addEventListener('resize', this.reload);
+            this.loadChart();
+        },
+    
+        methods: {
+            loadChart() {
+                console.log('loading..');
+    
+                new ChartDoughnut(
+                    this.$el.getContext('2d'),
+                    {
+                        type: this.type,
+                        data: this.data,
+                        options: {
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                ); 
+            },
+    
+            reload() {
+                window.clearTimeout(this.timeoutHandle);
+    
+                this.timeoutHandle = window.setTimeout(
+                    this.loadChart(),
+                3);
+            }
+        }
     };
 
 
     return <>
         <Doughnut data={data} />
+
+   
+        
 
     </>
 }

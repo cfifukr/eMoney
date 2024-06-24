@@ -3,6 +3,7 @@ package com.example.emoney.controllers;
 
 import com.example.emoney.dtos.TransactionDto;
 import com.example.emoney.dtos.TransactionResponseDto;
+import com.example.emoney.enums.Operation;
 import com.example.emoney.exceptions.ExceptionDto;
 import com.example.emoney.models.Transaction;
 import com.example.emoney.models.Wallet;
@@ -45,6 +46,13 @@ public class TransactionController {
 
         Wallet wallet  = walletService.findWalletById(wallet_id);
         Transaction transaction = transactionDto.getTransaction(wallet);
+        if(Operation.valueOf(transactionDto.getOperation()).compareTo(Operation.IN) == 0){
+            wallet.setBalance(wallet.getBalance() + transaction.getMoney());
+        }
+        if(Operation.valueOf(transactionDto.getOperation()).compareTo(Operation.OUT) == 0){
+            wallet.setBalance(wallet.getBalance() - transaction.getMoney());
+        }
+        walletService.saveWallet(wallet);
         if(wallet.belongToAuthTokenUser(authToken, jwtService)) {
             return ResponseEntity.ok(TransactionResponseDto.getDto(transactionService.saveTransaction(transaction)));
         }

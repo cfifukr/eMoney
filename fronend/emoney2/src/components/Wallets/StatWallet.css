@@ -13,7 +13,6 @@
   }
   
  
-  
   .balance-container {
     display: flex;
     justify-content: flex-start;
@@ -29,7 +28,7 @@
   .details-img {
     width: 64px;
     height: 64px;
-    margin: 24px;
+    margin: 16px;
   }
   
   .details-text {

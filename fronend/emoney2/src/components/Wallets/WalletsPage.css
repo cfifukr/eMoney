@@ -4,12 +4,23 @@
     z-index: 1;
 }
 
+
+.sidebar-wrapper {
+    height: 100%; 
+    padding-top: 20px; 
+}
+@media (min-width: 768px) {
+    .content-wrapper {
+        padding-top: 20px; /* Adjust top padding */
+    }
+}
+
+
 .currency-icon{
     width: 20px;
     height: 20px;
     color: #F3F4F6;
 }
-
 
 .sidebar-container {
     height: 100%;
@@ -23,28 +34,38 @@
 .chart{
     background-color: #F3F4F6;
     border-radius: 1rem;
-    max-height: 25rem;
-    width: 90%;
+    max-height: 40rem;
     border: 1px solid #A79B94;
     margin: 0 1rem;
-    padding: 0.5rem;
 }
+.chart-dough canvas{
+    margin: auto;
+    padding: 0.5rem 0.5rem;
+}
+
+.chart-dough {
+    margin-bottom: 1rem;
+}
+
 
 
 .transactions-container{
     background-color: #F3F4F6;
+    width: 95% !important;
+    margin: 0 2.5%;
 }
 .footer{
     margin-top: 0;
 }
 .chart-bar{
-    width: 100%;
-    margin: 1rem auto;
+    width: 95%;
+    margin: 2.5% 1rem;
+    margin-bottom: 0;
 }
 
 .stat-container{
-    width: 90%;
-    margin: 0 1rem;
+    width: 95%;
+    margin: 0 2.5%;
     border-radius: 1rem;
     max-height: 25rem;
 }

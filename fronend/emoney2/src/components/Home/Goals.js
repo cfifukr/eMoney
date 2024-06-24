@@ -32,15 +32,15 @@ function Goals() {
         <>
             <ListGroup as="ol" className="goals">
                 {goalsDto.list.map((goal) => (
-                    <Goal key={goal.id} goal={goal} />
+                    <Goal key={goal.id} goal={goal} setGoalsDto={setGoalsDto} goalsDto={goalsDto} />
                 ))}
             </ListGroup>
             <div className="pagination-container">
                 <Row>
-                    <Col sm lg md = {9}>
+                    <Col xm={7} sm= {7} lg= {9} md = {9}>
                             <PaginationComp dto={goalsDto} setCurrentPage={setCurrentPage}/>
                     </Col>
-                    <Col className="text-end" sm lg md = {3}>
+                    <Col className="text-end" xm ={5} sm={5} lg={3} md = {3}>
                         <AddGoalForm  goalsDto={goalsDto} setGoalsDto={setGoalsDto}/>
                     </Col>
 

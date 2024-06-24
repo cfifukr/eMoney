@@ -3,8 +3,6 @@ import api from "../../api/axios";
 import { getConfig } from "../../utils/jwtToken";
 import { subtractDays } from "../../utils/date";
 import Transactions from "./Transactions";
-import { Col, Row } from "react-bootstrap";
-import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import "./WalletsPage.css"
 import ChartDoughnut from "./Charts/ChartDoughnut";
@@ -45,9 +43,10 @@ function WalletContent({ selectedWalletId }) {
 
     return (
         <>
-
-            <Row className="py-3 ps-2">
-                <Col sm={12} md={6} lg={7} xl={7} >
+            <div className=" row py-3 ps-2">
+                <div className=" col-xm-12 col-sm-12 col-md-12 col-lg-7 col-xl-7 
+                    order-md-last order-sm-last order-xm-last
+                    order-lg-first order-xl-first" style={{margin:"0 auto"}}>
                     <Transactions 
                         setWalletDto={setWalletDto}
                         transactionsDto={walletDto?.transactionsDto}
@@ -58,20 +57,22 @@ function WalletContent({ selectedWalletId }) {
                         <ChartBarWallet transactions={walletDto?.transactionsDto?.list || []}/>
                     </div>
                 
-                </Col>
+                </div>
 
-                <Col sm={12} md={6} lg={5} xl={5} >
+                <div className="col-xm-12 col-sm-12 col-md-12 col-lg-5 col-xl-5
+                     order-md-first order-sm-first order-xm-first
+                     order-lg-last order-xl-last"  style={{margin:"0rem auto"}} >
 
                     <div className="stat-container mb-3">
                         <StatWallet walletStatDto={walletDto}/>
 
                     </div>
-                    <div className="chart">
+                    <div className="chart chart-dough ">
                         <ChartDoughnut transactionsList={walletDto?.transactionsDto?.list}/>
 
                     </div>
-                </Col>
-            </Row>
+                </div>
+            </div>
             
         </>
     );

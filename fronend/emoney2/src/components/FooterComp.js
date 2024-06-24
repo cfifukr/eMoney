@@ -9,9 +9,9 @@ const FooterComp = () => {
         <p>&copy; {new Date().getFullYear()} eMoney. All rights reserved.</p>
         <nav className="footer-nav">
           <a href="/about">About</a>
-          <a href="/contact">Contact</a>
+          <a href="/about">Contact</a>
           <a href="/privacy-policy">Privacy Policy</a>
-          <a href="/terms-of-service">Terms of Service</a>
+          <a href="/terms-service">Terms of Service</a>
         </nav>
       </div>
     </footer>

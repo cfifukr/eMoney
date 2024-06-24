@@ -1,13 +1,13 @@
 .custom-form{
     margin: auto;
-    margin:5% 0;
+    margin:5% auto;
     background-color: #F3F4F6;
     padding: 3rem;
     border: 2px solid #A79B94;
     border-radius: 1rem;
 
-}
 
+}
 
 .custom-form .input{
     margin: auto;
@@ -29,6 +29,8 @@
     margin: auto;
     background-color: #689EB8;
     border: 1px solid #5a879e;
+    z-index: 0;
+    
 }
 
 .privacy-text {

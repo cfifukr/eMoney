@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import "./Forms.css"
 import { Row, Col, InputGroup, Form, Button, Alert } from "react-bootstrap";
 import FooterComp from "../FooterComp.js"
 import api from "../../api/axios.js"
-import { getConfig } from "../../utils/jwtToken.js";
+import { getConfig, isJwtToken } from "../../utils/jwtToken.js";
 import { useNavigate } from "react-router";
+
 
 function BlogForm() {
     const navigate = useNavigate();
@@ -17,6 +18,26 @@ function BlogForm() {
     const [selectedComponent, setSelectedComponent] = useState('');
     const [componentData, setComponentData] = useState('');
     const [error, setError] = useState('');
+    const [isLogged, setIsLogged] = useState(false);
+
+    const checkToken = async () => {
+        try {
+            const tokenExists = await isJwtToken();
+            setIsLogged(tokenExists);
+        } catch (error) {
+            console.error("Error checking JWT token:", error);
+            setIsLogged(false); 
+        }
+    };
+
+
+    useEffect(() => {
+        
+    
+        checkToken();
+    }, []);
+    
+
 
     const handleAddComponent = () => {
         if (selectedComponent && componentData) {
@@ -46,8 +67,8 @@ function BlogForm() {
     }
 
     return <>
-        <Row className="justify-content-md-center">
-            <Col xs={12} md={10} lg={7}>
+    { isLogged ? <Row className="justify-content-center" >
+            <Col  xm={12} xs={12} md={10} lg={7} xl={7}>
                 <Form onSubmit={handleSubmit}>
                 <Container className="custom-form">
                         <h3 className="poetsen-font text-center">Create Blog</h3>
@@ -135,6 +156,11 @@ function BlogForm() {
                 </Form>
             </Col>
         </Row>
+    :  <div style={{height:"80vh"}}>
+        <Alert variant="danger" className="px-auto text-center" style={{margin:"4rem 4rem"}}>
+            <h2 className="reddit-bold-font">Firstly, you need to login</h2>
+        </Alert>
+    </div>}
         <FooterComp />
 
     </>

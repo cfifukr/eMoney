@@ -34,3 +34,26 @@
     padding: 0;
 }
 
+
+.add-money{
+    width: 100%;
+    margin-top: 1rem;
+    margin-left: 0.5rem;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    display: none;
+}
+
+.goal-item:hover .add-money{
+    display: block;
+}
+
+.add-money .btn{
+    background-color: #A79B94;
+    color: #F3F4F6;
+    border: 0;
+}
+.add-money .btn:hover{
+    background-color: #a28e82;
+    
+}

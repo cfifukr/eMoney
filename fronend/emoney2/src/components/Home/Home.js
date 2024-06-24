@@ -1,11 +1,12 @@
 import React from "react";
 import "./Home.css"
+import { Alert } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import api from "../../api/axios"
+import api from "../../api/axios.js"
 import Wallets from "./Wallets.js";
 import ChartBar from "./ChartBar";
 import { formatDate, addDays, subtractDays } from "../../utils/date.js";
-import {getConfig} from "../../utils/jwtToken.js"
+import {getConfig, isJwtToken} from "../../utils/jwtToken.js"
 import AddWalletForm from "./AddWalletForm.js";
 import Goals from "./Goals.js";
 import FooterComp from "../FooterComp.js"
@@ -16,6 +17,17 @@ function Home({user, setUser}){
     const [incomes, setIncomes] = useState({});
     const [expenses, setExpenses] = useState({});
     const [loadedStat, setLoadedStat] = useState(true);
+    const [isLogged, setIsLogged] = useState(false);
+
+    const checkToken = async () => {
+        try {
+            const tokenExists = await isJwtToken();
+            setIsLogged(tokenExists);
+        } catch (error) {
+            console.error("Error checking JWT token:", error);
+            setIsLogged(false); 
+        }
+    };
 
     const fetchData = async () => {
         const first = new Date();
@@ -54,13 +66,14 @@ function Home({user, setUser}){
 
     useEffect(() => {
         fetchData()
+        checkToken();
     }, []);
 
 
     return <>
-    
+    {isLogged ? 
         <div className="custom-container row ">
-            <div className="col-lg-7 col-md-12 ">
+            <div className="col-xm-12 col-sm-12 col-md-12 col-lg-7 col-xl-7 ">
                 <div className="statistic-container">
                     {loadedStat ? (
                         <div>Loading chart...</div> 
@@ -70,7 +83,7 @@ function Home({user, setUser}){
                 </div>
                 <div className="statistic-container g-0">
                     <div className="poetsen-font text-center">
-                        <h3>Set goals to achieve them faster</h3>
+                        <h3 className="mb-3">Set goals to achieve them faster</h3>
                     </div>
                         <Goals/>
                 </div>
@@ -78,7 +91,7 @@ function Home({user, setUser}){
             
 
             
-            <div className=" right-side-container-wrappe col-lg-5 col-md-12 mb-5">
+            <div className=" right-side-container-wrappe col-xm-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
             
                 <div className="right-side-container">
                     <div className="poetsen-font">
@@ -98,6 +111,13 @@ function Home({user, setUser}){
             </div>
 
         </div>
+        :
+         <div style={{height:"80vh"}}>
+                <Alert variant="danger" className="px-auto text-center" style={{margin:"4rem 4rem"}}>
+                    <h2 className="reddit-bold-font">Firstly, you need to login</h2>
+                </Alert>
+            </div>
+        }
         <FooterComp/>
         </>
     

@@ -14,6 +14,7 @@ import BlogForm from './components/Forms/BlogForm';
 import WalletsPage from './components/Wallets/WalletsPage';
 import About from './components/OneComponentPage/About';
 import PrivacyPolicy from './components/OneComponentPage/PrivacyPolicy';
+import TermsService from './components/OneComponentPage/TermsService';
 
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
 
 
   useEffect(() => {
-    if(isJwtToken() && !user.username){
+    if( isJwtToken() && !user.username){
       getUserFromToken(getConfig())
         .then((data) => setUser(data));
     
@@ -74,6 +75,10 @@ function App() {
     {
       path:"/privacy-policy",
       element:<PrivacyPolicy/>
+    },
+    {
+      path:"/terms-service",
+      element:<TermsService/>
     }
 
 

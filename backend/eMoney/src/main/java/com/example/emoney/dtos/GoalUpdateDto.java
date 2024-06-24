@@ -7,6 +7,7 @@ import lombok.Data;
 public class GoalUpdateDto {
     private Long id;
     private String goal;
+    private Double money;
     private Double moneyHave;
     private Double moneyNeed;
     private Boolean isAccomplished;
@@ -19,12 +20,17 @@ public class GoalUpdateDto {
         if (this.moneyHave != null) {
             goal.setMoneyHave(this.moneyHave);
         }
+
+        if (this.money != null) {
+            goal.setMoneyHave(goal.getMoneyHave() + this.money);
+            if(goal.getMoneyHave() >= goal.getMoneyNeed()){
+                goal.setIsAccomplished(true);
+            }
+        }
         if (this.moneyNeed != null) {
             goal.setMoneyNeed(this.moneyNeed);
         }
-        if (this.isAccomplished != null) {
-            goal.setIsAccomplished(this.isAccomplished);
-        }
+
 
         return goal;
     }

@@ -6,6 +6,12 @@ import AddTransactionForm from "./AddTransactionForm";
 
 function Transactions({walletId, transactionsDto, setCurrentPage, setWalletDto}){
     const[showForm, setShowForm] = useState(false);
+
+    const paginationStyle = {
+        background: "#bee179",
+        border: "1px solid #84cc16",
+        color: "#F3F4F6"
+    };
     
 
     return <>
@@ -42,7 +48,9 @@ function Transactions({walletId, transactionsDto, setCurrentPage, setWalletDto})
                 </ListGroup.Item>
             </ListGroup>
             {transactionsDto ?
-                <PaginationComp dto = {transactionsDto} setCurrentPage={setCurrentPage}/> : ""
+            <div style={{marginLeft:"5%"}}>
+                <PaginationComp dto = {transactionsDto} setCurrentPage={setCurrentPage} paginationStyle={paginationStyle}/> 
+            </div> : ""
             }
         </div>
         

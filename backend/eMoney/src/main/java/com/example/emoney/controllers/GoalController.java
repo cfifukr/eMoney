@@ -98,14 +98,18 @@ public class GoalController {
     @PutMapping
     public ResponseEntity<?> updateGoal (@RequestHeader (HttpHeaders.AUTHORIZATION) String authHeader,
                                          @RequestBody GoalUpdateDto goalUpdateDto){
-        if(goalUpdateDto.getId() != null && goalUpdateDto.getId()  != 0){
+        System.out.println(goalUpdateDto);
+        if(goalUpdateDto.getId() == null && goalUpdateDto.getId()  == 0){
             return ResponseEntity.ok(new ExceptionDto(HttpStatus.FORBIDDEN.value(),
                     "Wrong request(No id)"));
         }
         Goal goal = goalService.getGoalById(goalUpdateDto.getId());
+
+
         if(goalBelongTo(authHeader, goal)) {
             Goal newGoal = goalUpdateDto.getUpdatedGoal(goal);
-            return ResponseEntity.ok(GoalResponseDto.getDto(newGoal));
+
+            return ResponseEntity.ok(GoalResponseDto.getDto(goalService.saveGoal(newGoal)));
         }else{
             return ResponseEntity.ok(new ExceptionDto(HttpStatus.FORBIDDEN.value(),
                     "This goal belongs to another user"));

@@ -31,7 +31,9 @@ public class BlogController {
     private final BlogService blogService;
     private final JwtService jwtService;
 
-    @GetMapping
+
+    // endpoint all for spring sec( to permit acces to unlogged users)
+    @GetMapping("/all")
     public ResponseEntity<BlogPageDto> getBlogs(@RequestParam(defaultValue = "0") int page,
                                                 @RequestParam(defaultValue = "5") int size){
 
